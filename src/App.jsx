@@ -525,9 +525,6 @@ export default function App() {
           transition={{ duration: 0.6 }}
           className="text-center mb-3 sm:mb-4 md:mb-6 relative w-full"
         >
-          <div className="inline-flex items-center px-3.5 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-[11px] sm:text-xs font-mono text-purple-300 mb-2">
-            <span>MINDSPARK '26 REWARDS</span>
-          </div>
 
           <h1 className="text-3xl sm:text-5xl md:text-6xl font-display font-black tracking-tighter mb-2 text-transparent bg-clip-text bg-gradient-to-b from-white to-white/60 drop-shadow-md uppercase leading-none">
             LUCKY WHEEL
