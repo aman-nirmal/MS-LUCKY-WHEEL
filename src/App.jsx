@@ -13,7 +13,6 @@ import {
   X
 } from "lucide-react";
 import PixelBlast from "./components/PixelBlast";
-import Preloader from "./components/Preloader";
 
 /* ─────────────────────────────────────────────────────────────
    Secret Predetermined Event Discount Logic (Strictly internal)
@@ -66,7 +65,6 @@ export default function App() {
   const [showModal, setShowModal] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [pointerAngle, setPointerAngle] = useState(0);
-  const [, setPreloaderDone] = useState(false);
 
   // Searchable dropdown state
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -414,9 +412,6 @@ export default function App() {
           content="Spin the official MindSpark '26 lucky wheel for exclusive competition registration vouchers."
         />
       </Helmet>
-
-      {/* Official MindSpark Preloader */}
-      <Preloader onComplete={() => setPreloaderDone(true)} />
 
       {/* Background - PixelBlast */}
       <div className="fixed inset-0 z-0 pointer-events-none opacity-40">
