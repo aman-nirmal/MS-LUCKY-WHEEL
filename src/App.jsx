@@ -409,8 +409,16 @@ export default function App() {
         <title>Lucky Wheel | MindSpark '26 - COEP Technological University</title>
         <meta
           name="description"
-          content="Spin the official MindSpark '26 lucky wheel for exclusive competition registration vouchers."
+          content="Pick your event, spin the wheel of fortune, and unlock instant registration discounts for MindSpark '26."
         />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Lucky Wheel | MindSpark '26 - COEP Technological University" />
+        <meta property="og:description" content="Pick your event, spin the wheel of fortune, and unlock instant registration discounts for MindSpark '26." />
+        <meta property="og:image" content="/opengraph.jpeg" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Lucky Wheel | MindSpark '26 - COEP Technological University" />
+        <meta name="twitter:description" content="Pick your event, spin the wheel of fortune, and unlock instant registration discounts for MindSpark '26." />
+        <meta name="twitter:image" content="/opengraph.jpeg" />
       </Helmet>
 
       {/* Background - PixelBlast */}
