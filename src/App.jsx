@@ -678,12 +678,12 @@ export default function App() {
           {/* Right Column: Wheel Canvas */}
           <div className="w-full max-w-[390px] sm:max-w-[440px] md:max-w-[480px] mx-auto lg:col-span-7 flex flex-col items-center justify-center relative z-10">
             
-            <div className="relative w-full aspect-square flex items-center justify-center p-2 sm:p-4 rounded-3xl bg-zinc-950/70 border border-white/[0.08] hover:border-purple-500/30 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.95)]">
+            <div className="relative w-full aspect-square flex items-center justify-center pt-5 pb-2.5 px-2.5 sm:pt-7 sm:pb-4 sm:px-4 rounded-3xl bg-zinc-950/70 border border-white/[0.08] hover:border-purple-500/30 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.95)]">
               
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(168,85,247,0.1)_0%,transparent_70%)] pointer-events-none rounded-3xl" />
 
               {/* Wheel Canvas & Pointer Wrapper */}
-              <div className="relative w-full h-full rounded-full p-2 sm:p-2.5 bg-zinc-950 border border-white/[0.12] flex items-center justify-center">
+              <div className="relative w-full aspect-square max-h-full rounded-full p-2 sm:p-2.5 bg-zinc-950 border border-white/[0.12] flex items-center justify-center">
                 
                 {/* Mechanical Flapper Top Needle Indicator (Precisely centered on wheel circle) */}
                 <div className="absolute -top-3.5 sm:-top-4 left-1/2 -translate-x-1/2 z-30 pointer-events-none flex items-center justify-center w-8">
