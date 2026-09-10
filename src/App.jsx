@@ -470,50 +470,72 @@ export default function App() {
         />
       </div>
 
+      {/* Top Header Bar - Pinned on top */}
+      <header className="relative z-30 w-full pt-3 sm:pt-5 pb-1 sm:pb-2 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex items-center justify-between">
+        {/* Left: Portal Link */}
+        <div className="flex items-center flex-1">
+          <a
+            href="https://mind-spark.org"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 text-[11px] font-mono text-purple-300 hover:text-white transition-all cursor-pointer"
+          >
+            <span>MIND-SPARK.ORG ↗</span>
+          </a>
+        </div>
+
+        {/* Center: MindSpark '26 Logo on Top */}
+        <div className="flex items-center justify-center shrink-0">
+          <a
+            href="https://mind-spark.org"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block group cursor-pointer"
+            title="MindSpark '26"
+          >
+            <img
+              src={titleLogo}
+              alt="MindSpark '26 Logo"
+              className="h-7 sm:h-9 md:h-11 w-auto max-w-[160px] sm:max-w-[220px] md:max-w-[270px] object-contain transition-transform duration-300 group-hover:scale-105 filter drop-shadow-[0_0_20px_rgba(168,85,247,0.4)]"
+            />
+          </a>
+        </div>
+
+        {/* Right: Sound Control Button */}
+        <div className="flex items-center justify-end flex-1">
+          <button
+            onClick={() => setSoundEnabled(!soundEnabled)}
+            className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 text-[11px] sm:text-xs font-mono text-white/70 hover:text-white transition-all cursor-pointer active:scale-95 touch-manipulation"
+            title={soundEnabled ? "Mute sound effects" : "Enable sound effects"}
+            aria-label={soundEnabled ? "Mute sound effects" : "Enable sound effects"}
+          >
+            {soundEnabled ? (
+              <>
+                <Volume2 className="w-3.5 h-3.5 text-purple-400 shrink-0" />
+                <span className="hidden sm:inline">SOUND ON</span>
+              </>
+            ) : (
+              <>
+                <VolumeX className="w-3.5 h-3.5 text-white/40 shrink-0" />
+                <span className="hidden sm:inline">MUTED</span>
+              </>
+            )}
+          </button>
+        </div>
+      </header>
+
       {/* Main Page Container - Vertically Centered with my-auto */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-grow flex flex-col items-center justify-center my-auto py-6 sm:py-10">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-grow flex flex-col items-center justify-center my-auto py-2 sm:py-6">
         
         {/* Hero Section Title */}
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: -15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-3 sm:mb-5 md:mb-7 relative w-full"
+          transition={{ duration: 0.6 }}
+          className="text-center mb-3 sm:mb-4 md:mb-6 relative w-full"
         >
-          {/* Brand Header Bar: Official MindSpark '26 Logo & Sound Control */}
-          <div className="relative flex items-center justify-center w-full max-w-5xl mx-auto mb-2 sm:mb-3.5 px-1">
-            <a
-              href="https://mind-spark.org"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block group cursor-pointer"
-              title="MindSpark '26"
-            >
-              <img
-                src={titleLogo}
-                alt="MindSpark '26"
-                className="h-7 sm:h-9 md:h-11 w-auto max-w-[175px] sm:max-w-[220px] md:max-w-[270px] object-contain transition-transform duration-300 group-hover:scale-105 filter drop-shadow-[0_0_20px_rgba(168,85,247,0.35)]"
-              />
-            </a>
-
-            <button
-              onClick={() => setSoundEnabled(!soundEnabled)}
-              className="absolute right-0 inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 text-[11px] sm:text-xs font-mono text-white/70 hover:text-white transition-all cursor-pointer active:scale-95 touch-manipulation"
-              title={soundEnabled ? "Mute sound effects" : "Enable sound effects"}
-              aria-label={soundEnabled ? "Mute sound effects" : "Enable sound effects"}
-            >
-              {soundEnabled ? (
-                <>
-                  <Volume2 className="w-3.5 h-3.5 text-purple-400 shrink-0" />
-                  <span className="hidden sm:inline">SOUND ON</span>
-                </>
-              ) : (
-                <>
-                  <VolumeX className="w-3.5 h-3.5 text-white/40 shrink-0" />
-                  <span className="hidden sm:inline">MUTED</span>
-                </>
-              )}
-            </button>
+          <div className="inline-flex items-center px-3.5 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-[11px] sm:text-xs font-mono text-purple-300 mb-2">
+            <span>MINDSPARK '26 REWARDS</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl md:text-6xl font-display font-black tracking-tighter mb-2 text-transparent bg-clip-text bg-gradient-to-b from-white to-white/60 drop-shadow-md uppercase leading-none">
