@@ -77,16 +77,40 @@ export default function App() {
   const animFrameIdRef = useRef(null);
   const audioCtxRef = useRef(null);
 
-  // Close dropdown on click outside
+  // Close dropdown on click outside & Escape key
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setIsDropdownOpen(false);
       }
     };
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setIsDropdownOpen(false);
+        setShowModal(false);
+      }
+    };
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
   }, []);
+
+  // Lock body scroll when modal is open to prevent background scrolling on mobile
+  useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [showModal]);
 
   // Filter events by search term
   const filteredEvents = EVENT_DATA.filter((evt) =>
@@ -404,7 +428,7 @@ export default function App() {
   };
 
   return (
-    <div className="relative min-h-screen bg-black text-white font-body overflow-x-hidden pt-12 sm:pt-16 md:pt-20 flex flex-col justify-between selection:bg-purple-600 selection:text-white">
+    <div className="relative min-h-screen bg-black text-white font-body overflow-x-hidden pt-6 sm:pt-10 md:pt-14 pb-8 flex flex-col justify-between selection:bg-purple-600 selection:text-white">
       <Helmet>
         <title>Lucky Wheel | MindSpark '26 - COEP Technological University</title>
         <meta
@@ -445,61 +469,62 @@ export default function App() {
       </div>
 
       {/* Main Page Container */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-grow flex flex-col items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 w-full flex-grow flex flex-col items-center">
         
         {/* Hero Section Title */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-8 sm:mb-12 relative w-full"
+          className="text-center mb-6 sm:mb-10 relative w-full"
         >
-          {/* Centered Pill Badge without icon & Floating Sound Toggle */}
-          <div className="relative flex items-center justify-center w-full max-w-5xl mx-auto mb-3">
-            <div className="inline-flex items-center px-3.5 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-xs font-mono text-purple-300">
+          {/* Centered Pill Badge & Responsive Sound Toggle */}
+          <div className="relative flex items-center justify-between sm:justify-center w-full max-w-5xl mx-auto mb-3 px-1">
+            <div className="sm:mx-auto inline-flex items-center px-3 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-[11px] sm:text-xs font-mono text-purple-300">
               <span>MINDSPARK '26 REWARDS</span>
             </div>
 
             <button
               onClick={() => setSoundEnabled(!soundEnabled)}
-              className="absolute right-0 hidden sm:inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 text-xs font-mono text-white/70 hover:text-white transition-all cursor-pointer"
+              className="sm:absolute sm:right-0 inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 text-[11px] sm:text-xs font-mono text-white/70 hover:text-white transition-all cursor-pointer active:scale-95 touch-manipulation"
               title={soundEnabled ? "Mute sound effects" : "Enable sound effects"}
+              aria-label={soundEnabled ? "Mute sound effects" : "Enable sound effects"}
             >
               {soundEnabled ? (
                 <>
-                  <Volume2 className="w-3.5 h-3.5 text-purple-400" />
+                  <Volume2 className="w-3.5 h-3.5 text-purple-400 shrink-0" />
                   <span>SOUND ON</span>
                 </>
               ) : (
                 <>
-                  <VolumeX className="w-3.5 h-3.5 text-white/40" />
+                  <VolumeX className="w-3.5 h-3.5 text-white/40 shrink-0" />
                   <span>MUTED</span>
                 </>
               )}
             </button>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-display font-black tracking-tighter mb-3 text-transparent bg-clip-text bg-gradient-to-b from-white to-white/60 drop-shadow-md uppercase">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-display font-black tracking-tighter mb-2 sm:mb-3 text-transparent bg-clip-text bg-gradient-to-b from-white to-white/60 drop-shadow-md uppercase leading-none">
             LUCKY WHEEL
           </h1>
-          <p className="text-white/90 max-w-2xl mx-auto text-sm sm:text-base font-normal leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+          <p className="text-white/90 max-w-xl mx-auto text-xs sm:text-base font-normal leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] px-2">
             Pick your event, spin the wheel of fortune, and unlock your instant registration discount.
           </p>
         </motion.div>
 
-        {/* 2-Column Grid Layout: Event Selector on Left (Up/Top-Aligned) & Wheel on Right */}
-        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start max-w-6xl mb-12">
+        {/* 2-Column Grid Layout: Event Selector on Left & Wheel on Right */}
+        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-start max-w-6xl mb-8 sm:mb-12">
           
-          {/* Left Column: Event Selector positioned at the top */}
-          <div className="lg:col-span-5 flex flex-col space-y-4">
+          {/* Left Column: Event Selector positioned with higher z-index so dropdown floats over the wheel */}
+          <div className={`lg:col-span-5 flex flex-col space-y-4 relative ${isDropdownOpen ? "z-40" : "z-30"}`}>
             
             {/* Premium Searchable SELECT EVENT Container */}
             <div
               ref={dropdownRef}
-              className="p-5 sm:p-6 rounded-2xl bg-zinc-950/80 border border-white/[0.08] hover:border-white/20 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.9)] transition-all relative"
+              className="p-4 sm:p-6 rounded-2xl bg-zinc-950/90 border border-white/[0.08] hover:border-white/20 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.9)] transition-all relative"
             >
-              <div className="flex items-center justify-between mb-2.5">
-                <label className="block text-xs font-mono text-white/50 uppercase tracking-wider">
+              <div className="flex items-center justify-between mb-2">
+                <label className="block text-[11px] sm:text-xs font-mono text-white/50 uppercase tracking-wider">
                   SELECT EVENT
                 </label>
                 <span className="text-[10px] font-mono text-white/40 tracking-wider">
@@ -507,127 +532,128 @@ export default function App() {
                 </span>
               </div>
 
-              {/* Custom Trigger Button */}
-              <button
-                type="button"
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className={`w-full bg-black/80 border text-left rounded-xl px-4 py-3 flex items-center justify-between transition-all cursor-pointer group ${
-                  isDropdownOpen
-                    ? "border-white/40 ring-1 ring-white/20 shadow-[0_0_20px_rgba(255,255,255,0.08)]"
-                    : "border-white/10 hover:border-white/30"
-                }`}
-              >
-                <div className="flex flex-col min-w-0 pr-2">
-                  <span className="text-white text-base font-semibold font-display tracking-wide truncate">
-                    {selectedEvent.name}
-                  </span>
-                  {selectedEvent.module && (
-                    <span className="text-[10px] font-mono text-white/40 uppercase tracking-widest mt-0.5">
-                      MODULE &bull; {selectedEvent.module}
-                    </span>
-                  )}
-                </div>
-                <ChevronDown
-                  className={`w-4 h-4 text-white/50 transition-transform duration-200 shrink-0 ${
-                    isDropdownOpen ? "rotate-180 text-white" : "group-hover:text-white"
+              {/* Custom Trigger Button & Popup Anchor */}
+              <div className="relative w-full">
+                <button
+                  type="button"
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  className={`w-full bg-black/80 border text-left rounded-xl px-3.5 sm:px-4 py-3 flex items-center justify-between transition-all cursor-pointer group touch-manipulation ${
+                    isDropdownOpen
+                      ? "border-purple-400/60 ring-1 ring-purple-400/30 shadow-[0_0_20px_rgba(168,85,247,0.15)]"
+                      : "border-white/10 hover:border-white/30"
                   }`}
-                />
-              </button>
+                >
+                  <div className="flex flex-col min-w-0 pr-2">
+                    <span className="text-white text-sm sm:text-base font-semibold font-display tracking-wide truncate">
+                      {selectedEvent.name}
+                    </span>
+                    {selectedEvent.module && (
+                      <span className="text-[9px] sm:text-[10px] font-mono text-white/40 uppercase tracking-widest mt-0.5">
+                        MODULE &bull; {selectedEvent.module}
+                      </span>
+                    )}
+                  </div>
+                  <ChevronDown
+                    className={`w-4 h-4 text-white/50 transition-transform duration-200 shrink-0 ${
+                      isDropdownOpen ? "rotate-180 text-purple-400" : "group-hover:text-white"
+                    }`}
+                  />
+                </button>
 
-              {/* Searchable Dropdown Menu Popup */}
-              <AnimatePresence>
-                {isDropdownOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -6, scale: 0.98 }}
-                    animate={{ opacity: 1, y: 4, scale: 1 }}
-                    exit={{ opacity: 0, y: -6, scale: 0.98 }}
-                    transition={{ duration: 0.16 }}
-                    className="absolute left-5 right-5 top-[calc(100%-8px)] z-50 rounded-xl bg-zinc-950 border border-white/15 shadow-[0_25px_60px_rgba(0,0,0,0.95)] backdrop-blur-2xl overflow-hidden"
-                  >
-                    {/* Search Input Bar */}
-                    <div className="p-3 border-b border-white/[0.08] relative">
-                      <Search className="w-3.5 h-3.5 text-white/40 absolute left-6 top-1/2 -translate-y-1/2 pointer-events-none" />
-                      <input
-                        type="text"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        placeholder="Type to search events..."
-                        autoFocus
-                        className="w-full bg-white/[0.04] border border-white/10 hover:border-white/20 focus:border-white/40 rounded-lg pl-9 pr-8 py-2 text-xs font-mono text-white placeholder-white/30 outline-none transition-all"
-                      />
-                      {searchTerm && (
-                        <button
-                          type="button"
-                          onClick={() => setSearchTerm("")}
-                          className="absolute right-6 top-1/2 -translate-y-1/2 text-white/40 hover:text-white p-0.5"
-                        >
-                          <X className="w-3 h-3" />
-                        </button>
-                      )}
-                    </div>
+                {/* Searchable Dropdown Menu Popup - Directly anchored below the button */}
+                <AnimatePresence>
+                  {isDropdownOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -6, scale: 0.98 }}
+                      animate={{ opacity: 1, y: 4, scale: 1 }}
+                      exit={{ opacity: 0, y: -6, scale: 0.98 }}
+                      transition={{ duration: 0.16 }}
+                      className="absolute left-0 right-0 top-full mt-1.5 z-50 rounded-xl bg-zinc-950/95 border border-white/20 shadow-[0_25px_60px_rgba(0,0,0,0.98),0_0_30px_rgba(168,85,247,0.2)] backdrop-blur-2xl overflow-hidden"
+                    >
+                      {/* Search Input Bar - 16px font on mobile to prevent iOS Safari auto-zoom */}
+                      <div className="p-2.5 sm:p-3 border-b border-white/[0.08] relative">
+                        <Search className="w-3.5 h-3.5 text-white/40 absolute left-5 sm:left-6 top-1/2 -translate-y-1/2 pointer-events-none" />
+                        <input
+                          type="text"
+                          value={searchTerm}
+                          onChange={(e) => setSearchTerm(e.target.value)}
+                          placeholder="Type to search events..."
+                          className="w-full bg-white/[0.06] border border-white/10 hover:border-white/20 focus:border-purple-400/50 rounded-lg pl-8 sm:pl-9 pr-8 py-2 text-[16px] sm:text-xs font-mono text-white placeholder-white/30 outline-none transition-all"
+                        />
+                        {searchTerm && (
+                          <button
+                            type="button"
+                            onClick={() => setSearchTerm("")}
+                            className="absolute right-5 sm:right-6 top-1/2 -translate-y-1/2 text-white/40 hover:text-white p-1"
+                          >
+                            <X className="w-3 h-3" />
+                          </button>
+                        )}
+                      </div>
 
-                    {/* Scrollable Event List */}
-                    <div className="max-h-56 overflow-y-auto p-1.5 space-y-0.5 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
-                      {filteredEvents.length > 0 ? (
-                        filteredEvents.map((evt) => {
-                          const isSelected = evt.name === selectedEvent.name;
-                          return (
-                            <button
-                              key={evt.name}
-                              type="button"
-                              onClick={() => {
-                                setSelectedEvent(evt);
-                                setIsDropdownOpen(false);
-                                setSearchTerm("");
-                              }}
-                              className={`w-full text-left px-3 py-2.5 rounded-lg flex items-center justify-between text-xs transition-all cursor-pointer ${
-                                isSelected
-                                  ? "bg-white/15 text-white font-semibold"
-                                  : "text-white/80 hover:bg-white/5 hover:text-white"
-                              }`}
-                            >
-                              <div className="flex flex-col truncate pr-2">
-                                <span className="font-display tracking-wide text-sm text-white">
-                                  {evt.name}
-                                </span>
-                                {evt.module && (
-                                  <span className="text-[9px] font-mono text-white/40 uppercase tracking-wider">
-                                    {evt.module}
+                      {/* Scrollable Event List */}
+                      <div className="max-h-60 sm:max-h-64 overflow-y-auto p-1.5 space-y-0.5 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+                        {filteredEvents.length > 0 ? (
+                          filteredEvents.map((evt) => {
+                            const isSelected = evt.name === selectedEvent.name;
+                            return (
+                              <button
+                                key={evt.name}
+                                type="button"
+                                onClick={() => {
+                                  setSelectedEvent(evt);
+                                  setIsDropdownOpen(false);
+                                  setSearchTerm("");
+                                }}
+                                className={`w-full text-left px-3 py-2.5 rounded-lg flex items-center justify-between text-xs transition-all cursor-pointer touch-manipulation ${
+                                  isSelected
+                                    ? "bg-purple-500/20 border border-purple-500/30 text-white font-semibold"
+                                    : "text-white/80 hover:bg-white/5 active:bg-white/10 hover:text-white"
+                                }`}
+                              >
+                                <div className="flex flex-col truncate pr-2">
+                                  <span className="font-display tracking-wide text-xs sm:text-sm text-white">
+                                    {evt.name}
                                   </span>
+                                  {evt.module && (
+                                    <span className="text-[9px] font-mono text-white/40 uppercase tracking-wider">
+                                      {evt.module}
+                                    </span>
+                                  )}
+                                </div>
+                                {isSelected && (
+                                  <Check className="w-3.5 h-3.5 text-purple-400 shrink-0" />
                                 )}
-                              </div>
-                              {isSelected && (
-                                <Check className="w-3.5 h-3.5 text-purple-400 shrink-0" />
-                              )}
-                            </button>
-                          );
-                        })
-                      ) : (
-                        <div className="py-6 text-center text-xs font-mono text-white/40">
-                          No competitions found for "{searchTerm}"
-                        </div>
-                      )}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                              </button>
+                            );
+                          })
+                        ) : (
+                          <div className="py-6 text-center text-xs font-mono text-white/40">
+                            No competitions found for "{searchTerm}"
+                          </div>
+                        )}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
 
             </div>
 
           </div>
 
           {/* Right Column: Wheel Canvas */}
-          <div className="lg:col-span-7 flex flex-col items-center justify-center">
+          <div className="lg:col-span-7 flex flex-col items-center justify-center relative z-10 w-full">
             
-            <div className="relative w-full max-w-[480px] aspect-square flex items-center justify-center p-2 sm:p-4 rounded-3xl bg-zinc-950/70 border border-white/[0.08] hover:border-purple-500/30 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.95)]">
+            <div className="relative w-full max-w-[340px] xs:max-w-[380px] sm:max-w-[460px] md:max-w-[480px] aspect-square flex items-center justify-center p-1.5 sm:p-4 rounded-3xl bg-zinc-950/70 border border-white/[0.08] hover:border-purple-500/30 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.95)] mt-2 sm:mt-0">
               
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(168,85,247,0.1)_0%,transparent_70%)] pointer-events-none rounded-3xl" />
 
               {/* Wheel Canvas & Pointer Wrapper */}
-              <div className="relative w-full h-full rounded-full p-2.5 bg-zinc-950 border border-white/[0.12] flex items-center justify-center">
+              <div className="relative w-full h-full rounded-full p-2 sm:p-2.5 bg-zinc-950 border border-white/[0.12] flex items-center justify-center">
                 
                 {/* Mechanical Flapper Top Needle Indicator (Precisely centered on wheel circle) */}
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-30 pointer-events-none flex items-center justify-center w-8">
+                <div className="absolute -top-3.5 sm:-top-4 left-1/2 -translate-x-1/2 z-30 pointer-events-none flex items-center justify-center w-8">
                   <div
                     className="w-8 h-11 filter drop-shadow-[0_4px_12px_rgba(168,85,247,0.8)] transition-transform duration-75"
                     style={{
@@ -655,14 +681,14 @@ export default function App() {
                   width={900}
                   height={900}
                   onClick={handleSpin}
-                  className="w-full h-full rounded-full cursor-pointer transition-transform ease-out"
+                  className="w-full h-full rounded-full cursor-pointer transition-transform ease-out touch-manipulation"
                 />
 
                 {/* Center Hub: Tap Spin Button */}
                 <button
                   onClick={handleSpin}
                   disabled={isSpinning}
-                  className="absolute w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-zinc-900 border-2 border-white/20 p-1 shadow-[0_0_30px_rgba(168,85,247,0.3)] z-20 hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center justify-center disabled:cursor-not-allowed group"
+                  className="absolute w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-zinc-900 border-2 border-white/20 p-1 shadow-[0_0_30px_rgba(168,85,247,0.3)] z-20 hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center justify-center disabled:cursor-not-allowed group touch-manipulation"
                   aria-label="Spin the wheel"
                 >
                   <div className="w-full h-full rounded-full bg-gradient-to-b from-zinc-900 to-black flex flex-col items-center justify-center border border-purple-500/40 group-hover:border-purple-400 transition-colors">
@@ -675,8 +701,8 @@ export default function App() {
 
             </div>
 
-            <div className="mt-6 sm:mt-7 flex items-center justify-center">
-              <span className="text-[11px] font-mono text-white/40 tracking-wider uppercase">
+            <div className="mt-4 sm:mt-7 flex items-center justify-center">
+              <span className="text-[10px] sm:text-[11px] font-mono text-white/40 tracking-wider uppercase">
                 {isSpinning ? "SPINNING THE WHEEL..." : "CLICK SPIN TO START"}
               </span>
             </div>
@@ -690,18 +716,19 @@ export default function App() {
       {/* Result Voucher Modal */}
       <AnimatePresence>
         {showModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-xl">
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 15 }}
               transition={{ duration: 0.25 }}
-              className="relative w-full max-w-md p-6 sm:p-7 rounded-2xl bg-zinc-950 border border-white/[0.15] shadow-[0_25px_70px_rgba(0,0,0,0.95),0_0_40px_rgba(168,85,247,0.15)] text-center"
+              className="relative w-full max-w-md p-5 sm:p-7 rounded-2xl bg-zinc-950 border border-white/[0.15] shadow-[0_25px_70px_rgba(0,0,0,0.95),0_0_40px_rgba(168,85,247,0.15)] text-center max-h-[90vh] overflow-y-auto"
             >
               {/* Close button */}
               <button
                 onClick={() => setShowModal(false)}
-                className="absolute top-4 right-4 text-white/40 hover:text-white p-1 rounded-lg hover:bg-white/10 transition-colors"
+                className="absolute top-4 right-4 text-white/40 hover:text-white p-1 rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
+                aria-label="Close modal"
               >
                 ✕
               </button>
@@ -731,7 +758,7 @@ export default function App() {
                   href={selectedEvent.regLink || "https://www.crwdctrl.in"}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 py-3 px-5 rounded-full bg-white text-black font-semibold text-xs uppercase tracking-wider hover:bg-zinc-200 transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)] flex items-center justify-center gap-1.5"
+                  className="flex-1 py-3 px-5 rounded-full bg-white text-black font-semibold text-xs uppercase tracking-wider hover:bg-zinc-200 transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)] flex items-center justify-center gap-1.5 touch-manipulation"
                 >
                   <span>Redeem & Register</span>
                   <ExternalLink className="w-3.5 h-3.5" />
@@ -741,7 +768,7 @@ export default function App() {
                     setShowModal(false);
                     setTimeout(handleSpin, 350);
                   }}
-                  className="py-3 px-4 rounded-full border border-white/15 hover:bg-white/10 text-white text-xs font-mono uppercase tracking-wider transition-all"
+                  className="py-3 px-4 rounded-full border border-white/15 hover:bg-white/10 text-white text-xs font-mono uppercase tracking-wider transition-all cursor-pointer touch-manipulation"
                 >
                   Spin Again
                 </button>
