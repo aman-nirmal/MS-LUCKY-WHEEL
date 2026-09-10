@@ -307,6 +307,7 @@ export default function App() {
   // Rigged spin calculation: always lands on selectedEvent.discount
   const handleSpin = () => {
     if (isSpinning) return;
+    setIsDropdownOpen(false); // Close dropdown immediately if open
     setIsSpinning(true);
     getAudioContext(); // Unlock audio on user click
 
@@ -536,12 +537,16 @@ export default function App() {
               <div className="relative w-full">
                 <button
                   type="button"
-                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                  className={`w-full bg-black/80 border text-left rounded-xl px-3.5 sm:px-4 py-3 flex items-center justify-between transition-all cursor-pointer group touch-manipulation ${
-                    isDropdownOpen
-                      ? "border-purple-400/60 ring-1 ring-purple-400/30 shadow-[0_0_20px_rgba(168,85,247,0.15)]"
-                      : "border-white/10 hover:border-white/30"
+                  disabled={isSpinning}
+                  onClick={() => !isSpinning && setIsDropdownOpen(!isDropdownOpen)}
+                  className={`w-full bg-black/80 border text-left rounded-xl px-3.5 sm:px-4 py-3 flex items-center justify-between transition-all touch-manipulation ${
+                    isSpinning
+                      ? "opacity-50 cursor-not-allowed border-white/5 pointer-events-none"
+                      : isDropdownOpen
+                      ? "border-purple-400/60 ring-1 ring-purple-400/30 shadow-[0_0_20px_rgba(168,85,247,0.15)] cursor-pointer"
+                      : "border-white/10 hover:border-white/30 cursor-pointer"
                   }`}
+                  aria-disabled={isSpinning}
                 >
                   <div className="flex flex-col min-w-0 pr-2">
                     <span className="text-white text-sm sm:text-base font-semibold font-display tracking-wide truncate">
@@ -600,15 +605,19 @@ export default function App() {
                               <button
                                 key={evt.name}
                                 type="button"
+                                disabled={isSpinning}
                                 onClick={() => {
+                                  if (isSpinning) return;
                                   setSelectedEvent(evt);
                                   setIsDropdownOpen(false);
                                   setSearchTerm("");
                                 }}
-                                className={`w-full text-left px-3 py-2.5 rounded-lg flex items-center justify-between text-xs transition-all cursor-pointer touch-manipulation ${
-                                  isSelected
-                                    ? "bg-purple-500/20 border border-purple-500/30 text-white font-semibold"
-                                    : "text-white/80 hover:bg-white/5 active:bg-white/10 hover:text-white"
+                                className={`w-full text-left px-3 py-2.5 rounded-lg flex items-center justify-between text-xs transition-all touch-manipulation ${
+                                  isSpinning
+                                    ? "opacity-40 cursor-not-allowed"
+                                    : isSelected
+                                    ? "bg-purple-500/20 border border-purple-500/30 text-white font-semibold cursor-pointer"
+                                    : "text-white/80 hover:bg-white/5 active:bg-white/10 hover:text-white cursor-pointer"
                                 }`}
                               >
                                 <div className="flex flex-col truncate pr-2">
