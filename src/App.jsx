@@ -476,10 +476,10 @@ export default function App() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-5 sm:mb-8 md:mb-10 relative w-full"
+          className="text-center mb-3 sm:mb-5 md:mb-7 relative w-full"
         >
           {/* Centered Pill Badge & Floating Sound Toggle */}
-          <div className="relative flex items-center justify-center w-full max-w-5xl mx-auto mb-3 px-1">
+          <div className="relative flex items-center justify-center w-full max-w-5xl mx-auto mb-2.5 px-1">
             <div className="inline-flex items-center px-3.5 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-[11px] sm:text-xs font-mono text-purple-300">
               <span>MINDSPARK '26 REWARDS</span>
             </div>
@@ -512,16 +512,16 @@ export default function App() {
           </p>
         </motion.div>
 
-        {/* 2-Column Grid Layout: Event Selector on Left & Wheel on Right */}
-        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-center max-w-5xl">
+        {/* 2-Column Grid Layout: Event Selector on Left (Top-Aligned) & Wheel on Right */}
+        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-12 items-start max-w-5xl">
           
-          {/* Left Column: Event Selector */}
-          <div className={`w-full max-w-[390px] sm:max-w-[440px] lg:max-w-none mx-auto lg:col-span-5 flex flex-col space-y-4 relative ${isDropdownOpen ? "z-40" : "z-30"}`}>
+          {/* Left Column: Event Selector positioned higher up */}
+          <div className={`w-full max-w-[390px] sm:max-w-[440px] lg:max-w-none mx-auto lg:col-span-5 flex flex-col space-y-3 relative ${isDropdownOpen ? "z-40" : "z-30"}`}>
             
             {/* Premium Searchable SELECT EVENT Container */}
             <div
               ref={dropdownRef}
-              className="p-4 sm:p-6 rounded-2xl bg-zinc-950/90 border border-white/[0.08] hover:border-white/20 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.9)] transition-all relative"
+              className="p-4 sm:p-5 lg:p-6 rounded-2xl bg-zinc-950/90 border border-white/[0.08] hover:border-white/20 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.9)] transition-all relative"
             >
               <div className="flex items-center justify-between mb-2">
                 <label className="block text-[11px] sm:text-xs font-mono text-white/50 uppercase tracking-wider">
