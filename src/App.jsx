@@ -778,22 +778,28 @@ export default function App() {
                     {/* Price Comparison Block */}
                     <div className="flex items-center justify-center gap-3">
                       {/* Original Price Pill with Distinctive Strikethrough Badge */}
-                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-zinc-900/90 border border-white/10 shadow-inner">
+                      <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-zinc-900/90 border border-white/10 shadow-inner">
                         <span className="text-[10px] font-mono uppercase tracking-wider text-white/40">WAS</span>
-                        <span className="text-base sm:text-lg font-mono text-white/50 line-through decoration-rose-500 decoration-2 font-medium">
-                          ₹{origPrice}
-                        </span>
+                        <div className="flex items-baseline font-body text-white/50">
+                          <span className="text-xs mr-1 text-white/40 font-medium">₹</span>
+                          <span className="text-base sm:text-lg font-semibold tracking-wider line-through decoration-rose-500/90 decoration-2">
+                            {origPrice}
+                          </span>
+                        </div>
                       </div>
 
                       {/* Arrow divider */}
                       <span className="text-purple-400/60 text-sm font-mono">&rarr;</span>
 
                       {/* Discounted Price Pill */}
-                      <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-lg bg-purple-500/15 border border-purple-500/30 shadow-[0_0_15px_rgba(168,85,247,0.15)]">
+                      <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-xl bg-purple-500/15 border border-purple-500/30 shadow-[0_0_20px_rgba(168,85,247,0.2)]">
                         <span className="text-[10px] font-mono uppercase tracking-wider text-purple-300 font-bold">NOW</span>
-                        <span className="text-2xl sm:text-3xl font-display font-black text-white tracking-tight">
-                          ₹{discPrice}
-                        </span>
+                        <div className="flex items-baseline font-body text-white font-bold">
+                          <span className="text-lg sm:text-xl text-purple-300 mr-1 font-semibold">₹</span>
+                          <span className="text-2xl sm:text-3xl font-black tracking-[0.06em]">
+                            {discPrice}
+                          </span>
+                        </div>
                       </div>
                     </div>
 
