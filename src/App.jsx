@@ -472,17 +472,8 @@ export default function App() {
 
       {/* Top Header Bar - Pinned on top */}
       <header className="relative z-30 w-full pt-3 sm:pt-5 pb-1 sm:pb-2 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex items-center justify-between">
-        {/* Left: Portal Link */}
-        <div className="flex items-center flex-1">
-          <a
-            href="https://mind-spark.org"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 text-[11px] font-mono text-purple-300 hover:text-white transition-all cursor-pointer"
-          >
-            <span>MIND-SPARK.ORG ↗</span>
-          </a>
-        </div>
+        {/* Left Spacer for symmetrical centering */}
+        <div className="flex items-center flex-1" />
 
         {/* Center: MindSpark '26 Logo on Top */}
         <div className="flex items-center justify-center shrink-0">
