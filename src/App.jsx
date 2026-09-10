@@ -428,7 +428,7 @@ export default function App() {
   };
 
   return (
-    <div className="relative min-h-screen bg-black text-white font-body overflow-x-hidden pt-6 sm:pt-10 md:pt-14 pb-8 flex flex-col justify-between selection:bg-purple-600 selection:text-white">
+    <div className="relative min-h-[100dvh] bg-black text-white font-body overflow-x-hidden flex flex-col justify-center selection:bg-purple-600 selection:text-white">
       <Helmet>
         <title>Lucky Wheel | MindSpark '26 - COEP Technological University</title>
         <meta
@@ -468,43 +468,43 @@ export default function App() {
         />
       </div>
 
-      {/* Main Page Container */}
-      <div className="relative z-10 max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 w-full flex-grow flex flex-col items-center">
+      {/* Main Page Container - Vertically Centered with my-auto */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-grow flex flex-col items-center justify-center my-auto py-6 sm:py-10">
         
         {/* Hero Section Title */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-6 sm:mb-10 relative w-full"
+          className="text-center mb-5 sm:mb-8 md:mb-10 relative w-full"
         >
-          {/* Centered Pill Badge & Responsive Sound Toggle */}
-          <div className="relative flex items-center justify-between sm:justify-center w-full max-w-5xl mx-auto mb-3 px-1">
-            <div className="sm:mx-auto inline-flex items-center px-3 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-[11px] sm:text-xs font-mono text-purple-300">
+          {/* Centered Pill Badge & Floating Sound Toggle */}
+          <div className="relative flex items-center justify-center w-full max-w-5xl mx-auto mb-3 px-1">
+            <div className="inline-flex items-center px-3.5 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-[11px] sm:text-xs font-mono text-purple-300">
               <span>MINDSPARK '26 REWARDS</span>
             </div>
 
             <button
               onClick={() => setSoundEnabled(!soundEnabled)}
-              className="sm:absolute sm:right-0 inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 text-[11px] sm:text-xs font-mono text-white/70 hover:text-white transition-all cursor-pointer active:scale-95 touch-manipulation"
+              className="absolute right-0 inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 text-[11px] sm:text-xs font-mono text-white/70 hover:text-white transition-all cursor-pointer active:scale-95 touch-manipulation"
               title={soundEnabled ? "Mute sound effects" : "Enable sound effects"}
               aria-label={soundEnabled ? "Mute sound effects" : "Enable sound effects"}
             >
               {soundEnabled ? (
                 <>
                   <Volume2 className="w-3.5 h-3.5 text-purple-400 shrink-0" />
-                  <span>SOUND ON</span>
+                  <span className="hidden sm:inline">SOUND ON</span>
                 </>
               ) : (
                 <>
                   <VolumeX className="w-3.5 h-3.5 text-white/40 shrink-0" />
-                  <span>MUTED</span>
+                  <span className="hidden sm:inline">MUTED</span>
                 </>
               )}
             </button>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-display font-black tracking-tighter mb-2 sm:mb-3 text-transparent bg-clip-text bg-gradient-to-b from-white to-white/60 drop-shadow-md uppercase leading-none">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-display font-black tracking-tighter mb-2 text-transparent bg-clip-text bg-gradient-to-b from-white to-white/60 drop-shadow-md uppercase leading-none">
             LUCKY WHEEL
           </h1>
           <p className="text-white/90 max-w-xl mx-auto text-xs sm:text-base font-normal leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] px-2">
@@ -513,10 +513,10 @@ export default function App() {
         </motion.div>
 
         {/* 2-Column Grid Layout: Event Selector on Left & Wheel on Right */}
-        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-start max-w-6xl mb-8 sm:mb-12">
+        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-center max-w-5xl">
           
-          {/* Left Column: Event Selector positioned with higher z-index so dropdown floats over the wheel */}
-          <div className={`lg:col-span-5 flex flex-col space-y-4 relative ${isDropdownOpen ? "z-40" : "z-30"}`}>
+          {/* Left Column: Event Selector */}
+          <div className={`w-full max-w-[390px] sm:max-w-[440px] lg:max-w-none mx-auto lg:col-span-5 flex flex-col space-y-4 relative ${isDropdownOpen ? "z-40" : "z-30"}`}>
             
             {/* Premium Searchable SELECT EVENT Container */}
             <div
@@ -643,9 +643,9 @@ export default function App() {
           </div>
 
           {/* Right Column: Wheel Canvas */}
-          <div className="lg:col-span-7 flex flex-col items-center justify-center relative z-10 w-full">
+          <div className="w-full max-w-[390px] sm:max-w-[440px] md:max-w-[480px] mx-auto lg:col-span-7 flex flex-col items-center justify-center relative z-10">
             
-            <div className="relative w-full max-w-[340px] xs:max-w-[380px] sm:max-w-[460px] md:max-w-[480px] aspect-square flex items-center justify-center p-1.5 sm:p-4 rounded-3xl bg-zinc-950/70 border border-white/[0.08] hover:border-purple-500/30 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.95)] mt-2 sm:mt-0">
+            <div className="relative w-full aspect-square flex items-center justify-center p-2 sm:p-4 rounded-3xl bg-zinc-950/70 border border-white/[0.08] hover:border-purple-500/30 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.95)]">
               
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(168,85,247,0.1)_0%,transparent_70%)] pointer-events-none rounded-3xl" />
 
@@ -701,7 +701,7 @@ export default function App() {
 
             </div>
 
-            <div className="mt-4 sm:mt-7 flex items-center justify-center">
+            <div className="mt-4 sm:mt-6 flex items-center justify-center">
               <span className="text-[10px] sm:text-[11px] font-mono text-white/40 tracking-wider uppercase">
                 {isSpinning ? "SPINNING THE WHEEL..." : "CLICK SPIN TO START"}
               </span>
