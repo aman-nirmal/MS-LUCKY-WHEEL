@@ -471,7 +471,7 @@ export default function App() {
       </div>
 
       {/* Top Header Bar - Pinned on top */}
-      <header className="relative z-30 w-full pt-3 sm:pt-5 pb-1 sm:pb-2 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex items-center justify-between">
+      <header className="relative z-30 w-full pt-6 sm:pt-7 md:pt-8 pb-1 sm:pb-2 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex items-center justify-between">
         {/* Left Spacer for symmetrical centering */}
         <div className="flex items-center flex-1" />
 
@@ -487,7 +487,7 @@ export default function App() {
             <img
               src={titleLogo}
               alt="MindSpark '26 Logo"
-              className="h-7 sm:h-9 md:h-11 w-auto max-w-[160px] sm:max-w-[220px] md:max-w-[270px] object-contain transition-transform duration-300 group-hover:scale-105 filter drop-shadow-[0_0_20px_rgba(168,85,247,0.4)]"
+              className="h-9 sm:h-10 md:h-12 w-auto max-w-[195px] sm:max-w-[240px] md:max-w-[280px] object-contain transition-transform duration-300 group-hover:scale-105 filter drop-shadow-[0_0_20px_rgba(168,85,247,0.4)]"
             />
           </a>
         </div>
