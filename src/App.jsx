@@ -18,29 +18,29 @@ import PixelBlast from "./components/PixelBlast";
    Secret Predetermined Event Discount Logic (Strictly internal)
    ───────────────────────────────────────────────────────────── */
 const EVENT_DATA = [
-  { name: "FLASH", discount: 50, module: "AMUZIA", regLink: "https://www.crwdctrl.in/competitions-view-details/flash" },
-  { name: "TAKE OFF", discount: 50, module: "AVIONICA", regLink: "https://www.crwdctrl.in/competitions-view-details/take-off" },
-  { name: "TORQUEST", discount: 50, module: "AVIONICA", regLink: "https://www.crwdctrl.in/competitions-view-details/torquest" },
-  { name: "CODE JUNKIE", discount: 40, module: "CODIFICA", regLink: "https://www.crwdctrl.in/competitions-view-details/code-junkie" },
-  { name: "WEBSCAPE", discount: 40, module: "CODIFICA", regLink: "https://www.crwdctrl.in/competitions-view-details/webscape" },
-  { name: "NEURAL NEXUS", discount: 40, module: "CODIFICA", regLink: "https://www.crwdctrl.in/competitions-view-details/neural-nexus" },
-  { name: "HACKATHON", discount: 20, module: "FLAGSHIP", regLink: "https://www.crwdctrl.in/competitions-view-details/hackathon" },
-  { name: "QUANTQUEST", discount: 50, module: "QUANTUMANIA", regLink: "https://www.crwdctrl.in/competitions-view-details/quantquest" },
-  { name: "WORLD-WIZE", discount: 50, module: "ILLUMINATI", regLink: "https://www.crwdctrl.in/competitions-view-details/worldwize" },
-  { name: "MATHLETICS", discount: 50, module: "LOGICA", regLink: "https://www.crwdctrl.in/competitions-view-details/mathletics" },
-  { name: "FUSION ID", discount: 40, module: "DESIGNOVA", regLink: "https://www.crwdctrl.in/competitions-view-details/fusion-id" },
-  { name: "REVIT RUSH", discount: 40, module: "DESIGNOVA", regLink: "https://www.crwdctrl.in/competitions-view-details/revit-rush" },
-  { name: "ASSEMBLIX", discount: 40, module: "POTENTIA", regLink: "https://www.crwdctrl.in/competitions-view-details/assemblix" },
-  { name: "FANDOM", discount: 50, module: "FAN-FRENZY", regLink: "https://www.crwdctrl.in/competitions-view-details/fandom" },
-  { name: "BEYOND SUITS", discount: 50, module: "FAN-FRENZY", regLink: "https://www.crwdctrl.in/competitions-view-details/beyond-suits" },
-  { name: "SHERLOCKED", discount: 50, module: "PRODIGIUM", regLink: "https://www.crwdctrl.in/competitions-view-details/sherlocked" },
-  { name: "GOOGLER", discount: 50, module: "PRODIGIUM", regLink: "https://www.crwdctrl.in/competitions-view-details/googler" },
-  { name: "UTOPIA", discount: 40, module: "STRUKTURA", regLink: "https://www.crwdctrl.in/competitions-view-details/utopia" },
-  { name: "EDIFEX", discount: 40, module: "STRUKTURA", regLink: "https://www.crwdctrl.in/competitions-view-details/edifex" },
-  { name: "ON THE ETCH", discount: 40, module: "SUBSTANTIA", regLink: "https://www.crwdctrl.in/competitions-view-details/on-the-etch" },
-  { name: "MICROAPPS", discount: 40, module: "VOLTUS", regLink: "https://www.crwdctrl.in/competitions-view-details/microapps" },
-  { name: "CIRCUIT FIXER", discount: 40, module: "VOLTUS", regLink: "https://www.crwdctrl.in/competitions-view-details/circuit-fixer" },
-  { name: "IDEATHON", discount: 40, module: "INNOVATION", regLink: "https://www.crwdctrl.in/competitions-view-details/ideathon" }
+  { name: "FLASH", discount: 50, originalPrice: 99, module: "AMUZIA", regLink: "https://www.crwdctrl.in/competitions-view-details/flash" },
+  { name: "TAKE OFF", discount: 50, originalPrice: 299, module: "AVIONICA", regLink: "https://www.crwdctrl.in/competitions-view-details/take-off" },
+  { name: "TORQUEST", discount: 50, originalPrice: 199, module: "AVIONICA", regLink: "https://www.crwdctrl.in/competitions-view-details/torquest" },
+  { name: "CODE JUNKIE", discount: 40, originalPrice: 199, module: "CODIFICA", regLink: "https://www.crwdctrl.in/competitions-view-details/code-junkie" },
+  { name: "WEBSCAPE", discount: 40, originalPrice: 199, module: "CODIFICA", regLink: "https://www.crwdctrl.in/competitions-view-details/webscape" },
+  { name: "NEURAL NEXUS", discount: 40, originalPrice: 199, module: "CODIFICA", regLink: "https://www.crwdctrl.in/competitions-view-details/neural-nexus" },
+  { name: "HACKATHON", discount: 20, originalPrice: 499, module: "FLAGSHIP", regLink: "https://www.crwdctrl.in/competitions-view-details/hackathon" },
+  { name: "QUANTQUEST", discount: 50, originalPrice: 199, module: "QUANTUMANIA", regLink: "https://www.crwdctrl.in/competitions-view-details/quantquest" },
+  { name: "WORLD-WIZE", discount: 50, originalPrice: 199, module: "ILLUMINATI", regLink: "https://www.crwdctrl.in/competitions-view-details/worldwize" },
+  { name: "MATHLETICS", discount: 50, originalPrice: 199, module: "LOGICA", regLink: "https://www.crwdctrl.in/competitions-view-details/mathletics" },
+  { name: "FUSION ID", discount: 40, originalPrice: 249, module: "DESIGNOVA", regLink: "https://www.crwdctrl.in/competitions-view-details/fusion-id" },
+  { name: "REVIT RUSH", discount: 40, originalPrice: 249, module: "DESIGNOVA", regLink: "https://www.crwdctrl.in/competitions-view-details/revit-rush" },
+  { name: "ASSEMBLIX", discount: 40, originalPrice: 199, module: "POTENTIA", regLink: "https://www.crwdctrl.in/competitions-view-details/assemblix" },
+  { name: "FANDOM", discount: 50, originalPrice: 199, module: "FAN-FRENZY", regLink: "https://www.crwdctrl.in/competitions-view-details/fandom" },
+  { name: "BEYOND SUITS", discount: 50, originalPrice: 199, module: "FAN-FRENZY", regLink: "https://www.crwdctrl.in/competitions-view-details/beyond-suits" },
+  { name: "SHERLOCKED", discount: 50, originalPrice: 199, module: "PRODIGIUM", regLink: "https://www.crwdctrl.in/competitions-view-details/sherlocked" },
+  { name: "GOOGLER", discount: 50, originalPrice: 199, module: "PRODIGIUM", regLink: "https://www.crwdctrl.in/competitions-view-details/googler" },
+  { name: "UTOPIA", discount: 40, originalPrice: 399, module: "STRUKTURA", regLink: "https://www.crwdctrl.in/competitions-view-details/utopia" },
+  { name: "EDIFEX", discount: 40, originalPrice: 299, module: "STRUKTURA", regLink: "https://www.crwdctrl.in/competitions-view-details/edifex" },
+  { name: "ON THE ETCH", discount: 40, originalPrice: 199, module: "SUBSTANTIA", regLink: "https://www.crwdctrl.in/competitions-view-details/on-the-etch" },
+  { name: "MICROAPPS", discount: 40, originalPrice: 199, module: "VOLTUS", regLink: "https://www.crwdctrl.in/competitions-view-details/microapps" },
+  { name: "CIRCUIT FIXER", discount: 40, originalPrice: 199, module: "VOLTUS", regLink: "https://www.crwdctrl.in/competitions-view-details/circuit-fixer" },
+  { name: "IDEATHON", discount: 40, originalPrice: 499, module: "INNOVATION", regLink: "https://www.crwdctrl.in/competitions-view-details/ideathon" }
 ];
 
 /* Minimal sleek aesthetic slices */
@@ -753,13 +753,40 @@ export default function App() {
               <h2 className="text-2xl sm:text-3xl font-display font-black text-white uppercase tracking-tight">
                 {selectedEvent.name}
               </h2>
-
-              {/* Large Discount Figure */}
-              <div className="my-5 py-5 px-4 rounded-xl bg-white/[0.03] border border-white/[0.08]">
-                <div className="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-white/60 font-display">
-                  {selectedEvent.discount}% OFF
+              {selectedEvent.module && (
+                <div className="text-[10px] font-mono text-white/40 uppercase tracking-widest mt-0.5">
+                  MODULE &bull; {selectedEvent.module}
                 </div>
-              </div>
+              )}
+
+              {/* Price & Discount Showcase Card with Strikethrough Original Price */}
+              {(() => {
+                const origPrice = selectedEvent.originalPrice || 199;
+                const discPrice = Math.floor(origPrice * (1 - selectedEvent.discount / 100));
+                const savings = origPrice - discPrice;
+                return (
+                  <div className="my-4 sm:my-5 py-4 px-4 rounded-xl bg-white/[0.03] border border-white/[0.08]">
+                    {/* Discount Percentage Pill */}
+                    <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-300 text-xs font-mono font-bold tracking-wider mb-2.5">
+                      <span>{selectedEvent.discount}% OFF</span>
+                    </div>
+
+                    {/* Strikethrough Original Price & Discounted Price */}
+                    <div className="flex items-baseline justify-center gap-3">
+                      <span className="text-xl sm:text-2xl text-white/40 line-through font-mono">
+                        ₹{origPrice}
+                      </span>
+                      <span className="text-4xl sm:text-5xl font-display font-black text-white tracking-tight">
+                        ₹{discPrice}
+                      </span>
+                    </div>
+
+                    <div className="text-[11px] font-mono text-emerald-400 tracking-wider mt-2 flex items-center justify-center gap-1">
+                      <span>Instant savings: ₹{savings}</span>
+                    </div>
+                  </div>
+                );
+              })()}
 
               {/* CTAs */}
               <div className="flex flex-col sm:flex-row gap-2.5">
