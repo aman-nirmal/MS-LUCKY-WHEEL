@@ -13,6 +13,7 @@ import {
   X
 } from "lucide-react";
 import PixelBlast from "./components/PixelBlast";
+import titleLogo from "./assets/images/title26.png";
 
 /* ─────────────────────────────────────────────────────────────
    Secret Predetermined Event Discount Logic (Strictly internal)
@@ -479,11 +480,21 @@ export default function App() {
           transition={{ duration: 0.8 }}
           className="text-center mb-3 sm:mb-5 md:mb-7 relative w-full"
         >
-          {/* Centered Pill Badge & Floating Sound Toggle */}
-          <div className="relative flex items-center justify-center w-full max-w-5xl mx-auto mb-2.5 px-1">
-            <div className="inline-flex items-center px-3.5 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-[11px] sm:text-xs font-mono text-purple-300">
-              <span>MINDSPARK '26 REWARDS</span>
-            </div>
+          {/* Brand Header Bar: Official MindSpark '26 Logo & Sound Control */}
+          <div className="relative flex items-center justify-center w-full max-w-5xl mx-auto mb-2 sm:mb-3.5 px-1">
+            <a
+              href="https://mind-spark.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block group cursor-pointer"
+              title="MindSpark '26"
+            >
+              <img
+                src={titleLogo}
+                alt="MindSpark '26"
+                className="h-7 sm:h-9 md:h-11 w-auto max-w-[175px] sm:max-w-[220px] md:max-w-[270px] object-contain transition-transform duration-300 group-hover:scale-105 filter drop-shadow-[0_0_20px_rgba(168,85,247,0.35)]"
+              />
+            </a>
 
             <button
               onClick={() => setSoundEnabled(!soundEnabled)}
