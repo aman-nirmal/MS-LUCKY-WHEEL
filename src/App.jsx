@@ -10,7 +10,8 @@ import {
   Volume2,
   VolumeX,
   Search,
-  X
+  X,
+  ArrowRight
 } from "lucide-react";
 import PixelBlast from "./components/PixelBlast";
 import titleLogo from "./assets/images/title26.png";
@@ -806,8 +807,8 @@ export default function App() {
                         </span>
                       </div>
 
-                      {/* Arrow divider */}
-                      <span className="text-purple-400/60 text-sm font-mono">&rarr;</span>
+                      {/* Prominent Glowing Arrow Divider */}
+                      <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 text-purple-400 shrink-0 filter drop-shadow-[0_0_10px_rgba(168,85,247,0.6)]" />
 
                       {/* Discounted Price Pill */}
                       <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-lg bg-purple-500/15 border border-purple-500/30 shadow-[0_0_15px_rgba(168,85,247,0.15)]">
